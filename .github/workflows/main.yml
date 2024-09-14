@@ -12,11 +12,14 @@ jobs:
         run: |
           sudo apt update
           sudo apt install -y chromium-browser
-          mkdir -p chromium
-          cp -r /usr/lib/chromium-browser/* chromium/
 
-      - name: Move Chromium to repo root
-        run: mv chromium/* ./
+      - name: Find Chromium path
+        run: which chromium-browser
+
+      - name: Copy Chromium files to repo
+        run: |
+          mkdir -p chromium
+          cp $(which chromium-browser) chromium/
 
       - name: List files
-        run: ls -la
+        run: ls -la chromium
